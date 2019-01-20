@@ -1,0 +1,51 @@
+@import './variable.scss';
+@import './media.scss';
+
+$font-size: 1rem;
+
+.input-form-group {
+    position: relative;
+    padding: .5rem 0 1rem;
+    width: 70vw;
+
+    @include respond-above(xs) {
+        max-width: 400px
+    }
+
+    @include respond-above(sm) {
+        width: 350px;
+    }
+
+    .input {
+        &-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            display: inline-block;
+            position: absolute;
+            top: 12px;
+            left: 5px;
+            color: $font-secondary;
+
+            &.active {
+                top: -2px;
+                color: $accent-color;
+                font-size: 10px;
+            }
+        }
+
+        &-box {
+            border: none;
+            border-bottom: 1px solid $font-secondary;
+            padding: 2px 5px;
+            display:block;
+            font-size: $font-size;
+            width: 100%;
+    
+            &:focus, &:active {
+                outline: 0;
+                box-shadow: none;
+                border-color: $accent-color;
+            }
+        }
+    }
+}

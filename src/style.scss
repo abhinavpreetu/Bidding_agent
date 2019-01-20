@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+@import './variable.scss';
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: $font-primary;
+}
+
+.primary-title {
+    color: $base-color;
+}
+
+.primary-btn {
+    background-color: $white;
+    color: $base-color;
+    border: 1px solid $base-color;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all 150ms ease-in-out;
+    cursor: pointer;
+    float: right;
+
+    &:hover {
+        background-color: $base-color;
+        color: $white;
+    }
+
+    &:focus, &:active {
+        outline: none;
+    }
+
+    &.disabled {
+        opacity: .5;
+        pointer-events: none;
+    }
+}
