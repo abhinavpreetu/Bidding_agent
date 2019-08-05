@@ -1,64 +1,65 @@
 import React from 'react';
 import './style.scss';
 import '../../form.scss';
+
+import * as validator from '../../shared/validations';
 export default class Signup extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            error: null,
+            isFormInvalid: false,
             form: [
                 {
                     key: 'username',
                     label: 'Username',
-                    placeholder: 'Enter your username',
                     type: 'text',
                     value: '',
+                    validations: [{required: true, msg: `Has to be filled you fool.`}],
                     error: '',
                 },
                 {
                     key: 'email',
                     label: 'Email ID',
-                    placeholder: 'Enter your email address',
                     type: 'email',
                     value: '',
+                    validations: ['required'],
                     error: '',
                 },
                 {
                     key: 'otp',
                     label: 'OTP',
-                    placeholder: 'Enter the OTP received',
                     type: 'text',
                     value: '',
+                    validations: ['required'],
                     error: '',
                 },
                 {
                     key: 'phone',
                     label: 'Phone',
-                    placeholder: 'Enter your phone number',
                     type: 'text',
                     value: '',
+                    validations: ['required', { minlength: 10 }],
                     error: '',
                 },
                 {
                     key: 'password',
                     label: 'Password',
-                    placeholder: 'Enter your password',
                     type: 'password',
                     value: '',
+                    validations: ['required', { minlength: 6, msg: 'Password has to be 6 characters atleat' }],
                     error: '',
                 },
                 {
                     key: 'confirm',
                     label: 'Confirm Password',
-                    placeholder: 'Confirm your password',
                     type: 'password',
                     value: '',
+                    validations: ['required'],
                     error: '',
                 }
             ]
         }
-        this.disabled = true;
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -79,9 +80,19 @@ export default class Signup extends React.Component {
                     placeholder=""
                     id={input.key}
                 />
+                {this.generateErrors(input.error)}
             </div>
         ))
-}
+    }
+
+    generateErrors = error => {
+        if (Array.isArray(error)) {
+            return error.map((error, index) => (
+                <p className="input-error" key={index}>{error}</p>
+            ));
+        }
+        return <p className="input-error">{error}</p>
+    }
 
     handleChange(event) {
         const { id, value } = event.target;
@@ -92,10 +103,23 @@ export default class Signup extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.form.reduce((acc, input) => ({
-            ...acc,
-            [input.key]: input.value
-        }), {}));
+        let { form } = this.state;
+        let isFormInvalid = false;
+        form = form.map(field => {
+            const value = validator.validateField(field);
+            if (value && value.error) {
+                field.error = value.msg;
+                isFormInvalid = isFormInvalid || !isFormInvalid;
+            } else {
+                field.error = '';
+            }
+            return field;
+        });
+        if (isFormInvalid) {
+            this.setState({ form, isFormInvalid });
+        } else {
+            console.log(form.map(fields => ({ [fields.key]: fields.value })));
+        }
     }
 
     render() {
@@ -107,8 +131,7 @@ export default class Signup extends React.Component {
                     <div className="input-form-group">
                         <input
                             type="submit"
-                            disabled={this.disabled}
-                            className={`primary-btn ${this.disabled ? 'disabled' : ''}`} />
+                            className="primary-btn" />
                     </div>
                 </form>
             </div>

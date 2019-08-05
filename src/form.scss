@@ -19,7 +19,6 @@ $font-size: 1rem;
     .input {
         &-label {
             font-size: 14px;
-            text-transform: uppercase;
             display: inline-block;
             position: absolute;
             top: 12px;
@@ -30,6 +29,7 @@ $font-size: 1rem;
                 top: -2px;
                 color: $accent-color;
                 font-size: 10px;
+                text-transform: uppercase;
             }
         }
 
@@ -46,6 +46,12 @@ $font-size: 1rem;
                 box-shadow: none;
                 border-color: $accent-color;
             }
+        }
+
+        &-error {
+            font-size: 12px;
+            color: $red;
+            margin: 5px 0 0 5px;
         }
     }
 }
