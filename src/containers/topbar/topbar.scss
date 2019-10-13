@@ -1,0 +1,25 @@
+.topbar {
+    padding: 1em;
+    box-shadow: 0 0 2px 0 #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .brand {
+        margin: 0;
+
+        .home-link {
+            display: inline-flex;
+            font-size: 2rem;
+            text-decoration: none;
+            
+            .logo {
+                height: 50px;
+            }
+        }
+    }
+
+    svg {
+        height: 50px;
+    }
+}

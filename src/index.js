@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 import App from './App';
 import Signup from './containers/signup/signup';
+import Login from './containers/login/login';
 
 const notFound = () => (
   <div>not found</div>
@@ -18,6 +19,7 @@ const routing = (
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
         <Route component={notFound}/>
       </Switch>
     </div>
